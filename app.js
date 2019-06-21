@@ -5,6 +5,7 @@ import logger from 'morgan';
 import cors from './config/cors';
 import mock from './components/mock/mock';
 import authRoutes from './components/auth/auth.routes';
+import db from './config/db';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+db.initConnection('ci-auth-db');
 
 app.use('/api/v1', mock.api);
 app.use('/api/v1/auth', authRoutes);

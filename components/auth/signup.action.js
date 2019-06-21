@@ -26,7 +26,7 @@ const signup = (req, res) => {
     const newUser = new User({ name, email, password: passwordHash });
     newUser.save((err) => {
       if (err) return sendErrorsFromDB(res, err);
-      return res.status(200).send({ data: true, errors: ['Registro realizado com sucesso!'] });
+      return res.status(200).send({ data: true, messages: ['Registro realizado com sucesso!'] });
     });
   });
 };
