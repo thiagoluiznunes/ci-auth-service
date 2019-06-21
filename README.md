@@ -1,6 +1,6 @@
 # ci-auth-service
 
-Badges in developing...
+[![Build Status](https://travis-ci.org/thiagoluiznunes/ci-auth-service.svg?branch=master)](https://travis-ci.org/thiagoluiznunes/ci-auth-service)
 
 ---
 Description: In developing...
