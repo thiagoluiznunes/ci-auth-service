@@ -3,7 +3,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import cors from './config/cors';
-import mock from './components/mock/mock';
 import authRoutes from './components/auth/auth.routes';
 import db from './config/db';
 
@@ -16,7 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 db.initConnection();
 
-app.use('/api/v1', mock.api);
 app.use('/api/v1/auth', authRoutes);
 
 // catch 404 and forward to error handler
