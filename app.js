@@ -14,7 +14,7 @@ app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-db.initConnection('ci-auth-db');
+db.initConnection();
 
 app.use('/api/v1', mock.api);
 app.use('/api/v1/auth', authRoutes);
