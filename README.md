@@ -1,6 +1,7 @@
 # ci-auth-service
 
 [![Build Status](https://travis-ci.org/thiagoluiznunes/ci-auth-service.svg?branch=master)](https://travis-ci.org/thiagoluiznunes/ci-auth-service)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3ee9b7a06c694f10f4e7/maintainability)](https://codeclimate.com/github/thiagoluiznunes/ci-auth-service/maintainability)
 
 ---
 Description: In developing...
