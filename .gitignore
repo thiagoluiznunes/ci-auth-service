@@ -2,7 +2,6 @@
 
 # project data
 .env
-.dotenv
 # compiled output
 /dist
 /tmp
