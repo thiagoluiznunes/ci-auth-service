@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Informe a senha.']
   },
-  articles: [Number],
   resetPasswordToken: {
     type: String
   }
