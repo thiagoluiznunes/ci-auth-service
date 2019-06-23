@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 const sendErrorsFromDB = (res, dbErrors) => {
+  console.log(dbErrors)
   const errors = [];
   _.forIn(dbErrors.errors, error => errors.push(error.message));
   return res.status(400).json({ errors });

@@ -2,6 +2,7 @@ import express from 'express';
 import signup from './signup.action';
 import login from './login.action';
 import forgot from './forgot.action';
+import getUser from './get-user.action';
 
 const router = new express.Router();
 
@@ -21,6 +22,10 @@ router.post('/signup', asyncMiddleware(async (req, res) => {
 
 router.post('/forgot-password', asyncMiddleware(async (req, res) => {
   await forgot(req, res);
+}));
+
+router.get('/users', asyncMiddleware(async (req, res) => {
+  await getUser(req, res);
 }));
 
 
