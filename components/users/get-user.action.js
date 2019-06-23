@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { AUTH_SECRET } from "babel-dotenv";
-import { sendErrorsFromDB } from './auth.helper';
+import { sendErrorsFromDB } from '../helper';
 import User from './user.model';
 
 const getUser = async (req, res) => {

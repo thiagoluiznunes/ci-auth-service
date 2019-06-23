@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import User from './user.model';
+import User from '../users/user.model';
 import { AUTH_SECRET } from "babel-dotenv";
 
 const login = (req, res) => {

@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import mailer from './mailer.action';
-import { sendErrorsFromDB } from './auth.helper';
+import { sendErrorsFromDB } from '../helper';
 import { AUTH_SECRET } from "babel-dotenv";
-import User from './user.model';
+import User from '../users/user.model';
 
 const emailRegex = /\S+@\S+\.\S+/;
 

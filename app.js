@@ -2,8 +2,8 @@ import createError from 'http-errors';
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import routes from './config/routes';
 import cors from './config/cors';
-import authRoutes from './components/auth/auth.routes';
 import db from './config/db';
 
 const app = express();
@@ -13,9 +13,8 @@ app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+routes.init(app);
 db.initConnection();
-
-app.use('/api/v1/auth', authRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
