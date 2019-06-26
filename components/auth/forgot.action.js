@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import mailer from './mailer.action';
-import { sendErrorsFromDB } from '../helper';
+import helper from '../helper';
 import { AUTH_SECRET } from "babel-dotenv";
 import User from '../users/user.model';
 
@@ -14,7 +14,7 @@ const forgotPassword = (req, res) => {
 
   User.findOne({ email }, (err, user) => {
     if (err) {
-      return sendErrorsFromDB(res, err);
+      return helper.sendErrorsFromDB(res, err);
     } else if (user) {
       const token = jwt.sign(user.toJSON(), AUTH_SECRET, {
         expiresIn: '5 minute'
@@ -22,7 +22,7 @@ const forgotPassword = (req, res) => {
       user.resetPasswordToken = token;
       user.save((err) => {
         if (err) {
-          return sendErrorsFromDB(res, err);
+          return helper.sendErrorsFromDB(res, err);
         }
         res.status(200).send('Token updated');
         mailer(req, email, token);

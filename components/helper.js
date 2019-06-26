@@ -12,4 +12,5 @@ const sendErrorsFromDB = (res, dbErrors) => {
   return res.status(400).json({ errors });
 };
 
+
 export default { asyncMiddleware, sendErrorsFromDB };
