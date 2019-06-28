@@ -11,7 +11,7 @@ const initConnection = async () => {
       },
     });
   } else {
-    const uri = 'mongodb://@ds239128.mlab.com:39128/ci-auth-db';
+    const uri = `mongodb://@ds239128.mlab.com:39128/${DB_NAME}`;
     mongoose.connect(uri, {
       useNewUrlParser: true,
       auth: {

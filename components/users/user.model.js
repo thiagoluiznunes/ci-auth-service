@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Informe a senha.']
   },
+  userImage: {
+    type: String
+  },
   resetPasswordToken: {
     type: String
   }
