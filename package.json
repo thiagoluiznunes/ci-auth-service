@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "init": "chmod +x ./scripts/*",
+    "postinstall": "chmod +x ./scripts/*",
     "dev": "scripts/dev.sh",
     "build": "scripts/build.sh",
     "start": "scripts/start.sh",
