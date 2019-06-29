@@ -9,10 +9,13 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "./node_modules/.bin/nodemon --exec babel-node ./bin/www",
-    "build": "./node_modules/.bin/babel src --out-dir dist",
-    "start": "./node_modules/.bin/nodemon --exec babel-node ./bin/www",
-    "lint": "./node_modules/.bin/eslint ./bin/*.js ./components/**/*.js ./config/*.js"
+    "init": "chmod +x ./scripts/*",
+    "dev": "scripts/dev.sh",
+    "build": "scripts/build.sh",
+    "start": "scripts/start.sh",
+    "lint": "scripts/lint.sh",
+    "test": "scripts/test.sh",
+    "prod": "scripts/prod.sh"
   },
   "dependencies": {
     "bcrypt": "3.0.6",
