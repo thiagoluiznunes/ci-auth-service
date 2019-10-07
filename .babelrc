@@ -1,11 +1,26 @@
 {
-  "presets": ["@babel/preset-env"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+      "useBuiltIns": "usage",
+      "corejs": 3
+      }
+    ]
+  ],
   "env": {
     "test": {
-      "plugins": ["istanbul"]
+      "plugins": [
+        "istanbul"
+      ]
     }
   },
-  "plugins": [["babel-plugin-dotenv", {
-    "replacedModuleName": "babel-dotenv"
-  }]]
+  "plugins": [
+    [
+      "babel-plugin-dotenv",
+      {
+        "replacedModuleName": "babel-dotenv"
+      }
+    ]
+  ]
 }
