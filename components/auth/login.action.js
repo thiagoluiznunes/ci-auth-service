@@ -18,7 +18,7 @@ const login = (req, res) => {
 
       res.json({ name, email, token });
     } else {
-      return res.status(400).send({ errors: 'Usuário/Senha inválidos' });
+      return res.status(400).send({ message: 'Usuário/Senha inválidos' });
     }
   });
 };
