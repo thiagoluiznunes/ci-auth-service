@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import helper from '../helper';
-import User from '../users/user.model';
+import User from '../user/user.model';
 
 const emailRegex = /\S+@\S+\.\S+/;
 const passwordRegex = /.{6,12}/;
