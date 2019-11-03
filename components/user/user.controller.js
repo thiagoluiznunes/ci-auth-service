@@ -1,41 +1,39 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { AUTH_SECRET } from 'babel-dotenv';
-import { sendErrorsFromDB } from '../helper';
+import helper from '../helper';
 import User from './user.model';
 
 const emailRegex = /\S+@\S+\.\S+/;
 const passwordRegex = /.{6,12}/;
 
 const getUser = async (req, res) => {
-  const authorization = 'authorization';
-  let token = req.body.token || req.query.token || req.headers[authorization];
-
-  await jwt.verify(token, AUTH_SECRET, (err, decode) => {
-    if (err) return res.status(400).json(err);
-    else if (decode) {
+  const token = req.body.token || req.query.token || req.headers['x-access-token', 'authorization'];
+  try {
+    const decode = await helper.decodeToken(token);
+    if (decode) {
       const email = decode.email;
       User.findOne({ email }, (err, user) => {
-        if (err) return sendErrorsFromDB(res, err);
+        if (err) return helper.sendErrorsFromDB(res, err);
         else if (user) res.status(200).send(user);
       });
     } else {
-      return res.status(400).send('Error')
+      return res.status(404).send('Not found.');
     }
-  });
+  } catch (error) {
+    res.status(400).json(error);
+  }
 }
 
 const patchUser = async (req, res) => {
-  const authorization = 'authorization';
-  let token = req.body.token || req.query.token || req.headers[authorization];
+  const token = req.body.token || req.query.token || req.headers['x-access-token', 'authorization'];
   const body = Object.entries(req.body)
 
-  await jwt.verify(token, AUTH_SECRET, (err, decode) => {
-    if (err) return res.status(400).json(err);
-    else if (decode) {
+  try {
+    const decode = await helper.decodeToken(token);
+    if (decode) {
       const email = decode.email;
       User.findOne({ email }, async (err, user) => {
-        if (err) return sendErrorsFromDB(res, err);
+        if (err) return helper.sendErrorsFromDB(res, err);
         else if (user) {
           for (let i = 0; i < body.length; i++) {
             const value = body[i];
@@ -63,9 +61,11 @@ const patchUser = async (req, res) => {
         }
       });
     } else {
-      return res.status(400).send('Error')
+      return res.status(404).send('Not found.');
     }
-  });
+  } catch (error) {
+    res.status(400).json(error);
+  }
 }
 
 export default {

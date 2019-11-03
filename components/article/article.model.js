@@ -9,6 +9,15 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Informe o título do artigo.']
   },
+  brief_description: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  banner: {
+    type: String,
+    required: [true, 'Informe o banner do artigo.']
+  },
   date: {
     type: Date,
     required: [true, 'Informe a data de criação artigo.']
