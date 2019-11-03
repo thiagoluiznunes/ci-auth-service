@@ -4,7 +4,7 @@ import ctrl from './article.controller';
 
 const router = new express.Router();
 
-router.post('/', helper.asyncMiddleware(async (req, res) => {
+router.post('/', helper.authorize, helper.asyncMiddleware(async (req, res) => {
   await ctrl.createArticle(req, res);
 }));
 

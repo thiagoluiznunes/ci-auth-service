@@ -27,7 +27,6 @@ const getUser = async (req, res) => {
 const patchUser = async (req, res) => {
   const token = req.body.token || req.query.token || req.headers['x-access-token', 'authorization'];
   const body = Object.entries(req.body)
-
   try {
     const decode = await helper.decodeToken(token);
     if (decode) {
