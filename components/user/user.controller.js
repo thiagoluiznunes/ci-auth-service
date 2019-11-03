@@ -1,11 +1,29 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { AUTH_SECRET } from "babel-dotenv";
-import helper from '../helper';
+import { AUTH_SECRET } from 'babel-dotenv';
+import { sendErrorsFromDB } from '../helper';
 import User from './user.model';
 
 const emailRegex = /\S+@\S+\.\S+/;
 const passwordRegex = /.{6,12}/;
+
+const getUser = async (req, res) => {
+  const authorization = 'authorization';
+  let token = req.body.token || req.query.token || req.headers[authorization];
+
+  await jwt.verify(token, AUTH_SECRET, (err, decode) => {
+    if (err) return res.status(400).json(err);
+    else if (decode) {
+      const email = decode.email;
+      User.findOne({ email }, (err, user) => {
+        if (err) return sendErrorsFromDB(res, err);
+        else if (user) res.status(200).send(user);
+      });
+    } else {
+      return res.status(400).send('Error')
+    }
+  });
+}
 
 const patchUser = async (req, res) => {
   const authorization = 'authorization';
@@ -17,7 +35,7 @@ const patchUser = async (req, res) => {
     else if (decode) {
       const email = decode.email;
       User.findOne({ email }, async (err, user) => {
-        if (err) return helper.sendErrorsFromDB(res, err);
+        if (err) return sendErrorsFromDB(res, err);
         else if (user) {
           for (let i = 0; i < body.length; i++) {
             const value = body[i];
@@ -50,4 +68,7 @@ const patchUser = async (req, res) => {
   });
 }
 
-export default patchUser;
+export default {
+  getUser,
+  patchUser,
+};

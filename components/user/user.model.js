@@ -18,7 +18,13 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: {
     type: String
-  }
+  },
+  articles: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Article'
+    }
+  ]
 });
 
 export default mongoose.model('User', userSchema);
