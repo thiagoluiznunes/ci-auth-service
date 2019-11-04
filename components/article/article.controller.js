@@ -2,7 +2,6 @@ import Article from './article.model';
 import User from '../user/user.model';
 import helper from '../helper';
 import service from './article.service';
-import moment from 'moment';
 
 const createArticle = async (req, res) => {
   try {
@@ -17,7 +16,6 @@ const createArticle = async (req, res) => {
         banner: banner,
         article_body: article_body,
         time_reading: await service.retrieveTimeReading(article_body),
-        createdAt: moment().format('L')
       });
       await User.findById(decode.id, async (err, user) => {
         if (err) return res.status(401).json(err);
@@ -48,11 +46,24 @@ const getArticleByUser = async (req, res) => {
       return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
   } catch (error) {
-    res.status(403).json(error);
+    res.status(500).json(error);
+  }
+}
+
+const getLatestArticles = async (req, res) => {
+  try {
+    Article.find((err, articles) => {
+      if (err) return res.status(401).json(err);
+      else if (articles.length !== 0) return res.status(200).json(articles);
+      return res.status(404).json({ message: 'Artigos não encontrados.' });
+    }).sort({ _id: -1 }).limit(5);
+  } catch (error) {
+    return res.status(500).json(error);
   }
 }
 
 export default {
   createArticle,
   getArticleByUser,
+  getLatestArticles,
 }

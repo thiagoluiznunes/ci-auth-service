@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import moment from 'moment';
 
 const articleSchema = new mongoose.Schema({
   user_id: {
@@ -24,9 +23,9 @@ const articleSchema = new mongoose.Schema({
     required: [true, 'Informe o banner do artigo.']
   },
   createdAt: {
-    type: String,
+    type: Date,
     required: false,
-    default: moment().format('L')
+    default: new Date()
   },
   time_reading: {
     type: Number,
