@@ -1,4 +1,5 @@
 import Article from './article.model';
+import User from '../user/user.model';
 import helper from '../helper';
 import service from './article.service';
 import moment from 'moment';
@@ -17,12 +18,15 @@ const createArticle = async (req, res) => {
         time_reading: await service.retrieveTimeReading(article_body),
         date: moment().format('L')
       });
-      article.save((err, article) => {
+      await User.findById(decode.id, async (err, user) => {
         if (err) return res.status(401).json(err);
-        else if (article) {
-          return res.status(200).json(article);
+        else if (user) {
+          const { _id } = await article.save();
+          user.articles.push(_id);
+          user.save();
+          return res.status(200).json({ message: 'Artigo criado com sucesso ' });
         } else {
-          return res.status(401).json('Not found.');
+          return res.status(401).json({ message: 'Falha ao criar artigo. Tente novamente.' });
         }
       });
     }
