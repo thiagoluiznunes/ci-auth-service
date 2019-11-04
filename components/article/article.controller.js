@@ -11,19 +11,18 @@ const createArticle = async (req, res) => {
     if (decode) {
       const { author, title, banner, article_body } = req.body;
       const article = new Article({
+        user_id: decode.id,
         author: author,
         title: title,
         banner: banner,
         article_body: article_body,
         time_reading: await service.retrieveTimeReading(article_body),
-        date: moment().format('L')
+        createdAt: moment().format('L')
       });
       await User.findById(decode.id, async (err, user) => {
         if (err) return res.status(401).json(err);
         else if (user) {
-          const { _id } = await article.save();
-          user.articles.push(_id);
-          user.save();
+          await article.save();
           return res.status(200).json({ message: 'Artigo criado com sucesso ' });
         } else {
           return res.status(401).json({ message: 'Falha ao criar artigo. Tente novamente.' });
@@ -35,12 +34,25 @@ const createArticle = async (req, res) => {
   }
 }
 
-const getArticle = async (req, res) => {
-  console.log(req.body);
-  res.status(200).json('Hello');
+const getArticleByUser = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const userId = await User.findOne({ username: username }, '_id');
+    if (userId) {
+      Article.find({ user_id: userId }, (err, articles) => {
+        if (err) return res.status(401).json(err);
+        else if (articles.length !== 0) return res.status(200).json({ data: articles });
+        return res.status(404).json({ message: 'Este usuário não possui artigos.' });
+      });
+    } else {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+  } catch (error) {
+    res.status(403).json(error);
+  }
 }
 
 export default {
   createArticle,
-  getArticle,
+  getArticleByUser,
 }

@@ -9,6 +9,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Informe o email.']
   },
+  username: {
+    type: String,
+    required: false,
+    default: function () {
+      return this.email.replace(/@\S+\.\S+/, '');
+    }
+  },
   password: {
     type: String,
     required: [true, 'Informe a senha.']
@@ -18,13 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: {
     type: String
-  },
-  articles: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Article'
-    }
-  ]
+  }
 });
 
 export default mongoose.model('User', userSchema);

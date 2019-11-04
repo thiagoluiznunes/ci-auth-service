@@ -8,8 +8,8 @@ router.post('/', helper.authorize, helper.asyncMiddleware(async (req, res) => {
   await ctrl.createArticle(req, res);
 }));
 
-router.get('/', helper.asyncMiddleware(async (req, res) => {
-  await ctrl.getArticle(req, res);
+router.get('/:username', helper.asyncMiddleware(async (req, res) => {
+  await ctrl.getArticleByUser(req, res);
 }));
 
 export default router;

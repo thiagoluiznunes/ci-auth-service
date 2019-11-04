@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import moment from 'moment';
 
 const articleSchema = new mongoose.Schema({
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, 'Informe o id do usuário.']
+  },
   author: {
     type: String,
     required: [true, 'Informe o autor do artigo.']
@@ -19,7 +23,7 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Informe o banner do artigo.']
   },
-  date: {
+  createdAt: {
     type: String,
     required: false,
     default: moment().format('L')
