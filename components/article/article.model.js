@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import moment from 'moment';
 
 const articleSchema = new mongoose.Schema({
   author: {
@@ -19,11 +20,12 @@ const articleSchema = new mongoose.Schema({
     required: [true, 'Informe o banner do artigo.']
   },
   date: {
-    type: Date,
-    required: [true, 'Informe a data de criação artigo.']
+    type: String,
+    required: false,
+    default: moment().format('L')
   },
   time_reading: {
-    type: String,
+    type: Number,
     required: [true, 'Informe tempo de leitura do artigo.']
   },
   article_body: {

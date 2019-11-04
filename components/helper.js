@@ -15,16 +15,19 @@ const sendErrorsFromDB = (res, dbErrors) => {
 };
 
 const generateToken = async (data) => {
-  return jwt.sign(data, AUTH_SECRET, { expiresIn: '365d' });
+  return jwt.sign(data, AUTH_SECRET, { expiresIn: '1d' });
 }
 
 const decodeToken = async (token) => {
   return jwt.verify(token, AUTH_SECRET);
 }
 
-const authorize = (req, res, next) => {
-  const token = req.body.token || req.query.token || req.headers['x-access-token', 'authorization'];
+const retrieveToken = async (req) => {
+  return req.body.token || req.query.token || req.headers['x-access-token', 'authorization'];
+}
 
+const authorize = async (req, res, next) => {
+  const token = await retrieveToken(req);
   if (!token) {
     res.status(403).json({
       message: 'Unauthorized access.'
@@ -46,6 +49,7 @@ export default {
   asyncMiddleware,
   sendErrorsFromDB,
   generateToken,
+  retrieveToken,
   decodeToken,
   authorize,
 };
