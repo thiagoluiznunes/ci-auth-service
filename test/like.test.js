@@ -23,7 +23,5 @@ try {
 } catch (error) {
   console.log(error);
   mongoose.connection.close()
-} finally {
-  mongoose.connection.close()
 }
 
