@@ -7,7 +7,12 @@ const createArticle = async (req, res) => {
   try {
     const token = await helper.retrieveToken(req);
     const decode = await helper.decodeToken(token);
-    if (decode) {
+    const validate = await service.validateBodyFields(req);
+
+    if (validate) {
+      res.status(401).json({ message: validate });
+    }
+    else if (decode) {
       const { author, title, banner, article_body, brief_description } = req.body;
       const article = new Article({
         user_id: decode.id,
