@@ -8,13 +8,14 @@ const createArticle = async (req, res) => {
     const token = await helper.retrieveToken(req);
     const decode = await helper.decodeToken(token);
     if (decode) {
-      const { author, title, banner, article_body } = req.body;
+      const { author, title, banner, article_body, brief_description } = req.body;
       const article = new Article({
         user_id: decode.id,
         author: author,
         title: title,
         banner: banner,
         article_body: article_body,
+        brief_description: brief_description,
         time_reading: await service.retrieveTimeReading(article_body),
       });
       await User.findById(decode.id, async (err, user) => {
@@ -62,8 +63,21 @@ const getLatestArticles = async (req, res) => {
   }
 }
 
+const getMoreRatedArticles = async (req, res) => {
+  try {
+    Article.find((err, articles) => {
+      if (err) return res.status(401).json(err);
+      else if (articles.length !== 0) return res.status(200).json(articles);
+      return res.status(404).json({ message: 'Artigos não encontrados.' });
+    }).sort({ likes: -1 }).limit(10);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
+
 export default {
   createArticle,
   getArticleByUser,
   getLatestArticles,
+  getMoreRatedArticles,
 }

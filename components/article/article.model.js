@@ -15,8 +15,7 @@ const articleSchema = new mongoose.Schema({
   },
   brief_description: {
     type: String,
-    required: false,
-    default: ''
+    required: [true, 'Informe uma breve descripção do artigo.']
   },
   banner: {
     type: String,
