@@ -63,7 +63,7 @@ const getLatestArticles = async (req, res) => {
   }
 }
 
-const getMoreRatedArticles = async (req, res) => {
+const getTopRatedArticles = async (req, res) => {
   try {
     Article.find((err, articles) => {
       if (err) return res.status(401).json(err);
@@ -79,5 +79,5 @@ export default {
   createArticle,
   getArticleByUser,
   getLatestArticles,
-  getMoreRatedArticles,
+  getTopRatedArticles,
 }

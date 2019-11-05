@@ -16,8 +16,8 @@ router.get('/latest', helper.asyncMiddleware(async (req, res) => {
   await ctrl.getLatestArticles(req, res);
 }));
 
-router.get('/more-rated', helper.asyncMiddleware(async (req, res) => {
-  await ctrl.getMoreRatedArticles(req, res);
+router.get('/top-rated', helper.asyncMiddleware(async (req, res) => {
+  await ctrl.getTopRatedArticles(req, res);
 }));
 
 export default router;
