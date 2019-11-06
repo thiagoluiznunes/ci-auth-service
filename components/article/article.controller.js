@@ -39,7 +39,7 @@ const createArticle = async (req, res) => {
   }
 }
 
-const getArticleByUser = async (req, res) => {
+const getArticleByUserName = async (req, res) => {
   try {
     const { username } = req.params;
     const userId = await User.findOne({ username: username }, '_id');
@@ -87,9 +87,23 @@ const getTopRatedArticles = async (req, res) => {
   }
 }
 
+const getArticleById = async (req, res) => {
+  const { _id } = req.params;
+  try {
+    Article.findById(_id, (err, article) => {
+      if (err) return res.status(401).json(err);
+      else if (article) return res.status(200).json(article);
+      return res.status(404).json({ message: 'Artigo não encontrado.' });
+    });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
+
 export default {
   createArticle,
-  getArticleByUser,
+  getArticleByUserName,
   getLatestArticles,
   getTopRatedArticles,
+  getArticleById,
 }

@@ -4,11 +4,11 @@ import ctrl from './user.controller';
 
 const router = new express.Router();
 
-router.get('/', helper.authorize , helper.asyncMiddleware(async (req, res) => {
+router.get('/users', helper.authorize , helper.asyncMiddleware(async (req, res) => {
   await ctrl.getUser(req, res);
 }));
 
-router.patch('/', helper.authorize, helper.asyncMiddleware(async (req, res) => {
+router.patch('/users', helper.authorize, helper.asyncMiddleware(async (req, res) => {
   await ctrl.patchUser(req, res);
 }));
 

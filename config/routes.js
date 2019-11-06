@@ -3,9 +3,9 @@ import user from '../components/user/user.routes';
 import article from '../components/article/article.routes';
 
 const init = (app) => {
-  app.use('/api/v1/auth', auth);
-  app.use('/api/v1/users', user);
-  app.use('/api/v1/articles', article);
+  app.use('/api/v1', auth);
+  app.use('/api/v1', user);
+  app.use('/api/v1', article);
 }
 
 export default { init };
