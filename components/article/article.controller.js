@@ -57,7 +57,10 @@ const getLatestArticles = async (req, res) => {
       if (err) return res.status(401).json(err);
       else if (articles.length !== 0) return res.status(200).json(articles);
       return res.status(404).json({ message: 'Artigos não encontrados.' });
-    }).sort({ _id: -1 }).limit(5);
+    })
+      .select('_id author title banner brief_description time_reading createdAt')
+      .sort({ _id: -1 })
+      .limit(5);
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -69,7 +72,10 @@ const getTopRatedArticles = async (req, res) => {
       if (err) return res.status(401).json(err);
       else if (articles.length !== 0) return res.status(200).json(articles);
       return res.status(404).json({ message: 'Artigos não encontrados.' });
-    }).sort({ likes: -1 }).limit(10);
+    })
+      .select('_id author title banner brief_description time_reading createdAt')
+      .sort({ likes: -1 })
+      .limit(10);
   } catch (error) {
     return res.status(500).json(error);
   }
