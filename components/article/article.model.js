@@ -5,6 +5,10 @@ const articleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: [true, 'Informe o id do usuário.']
   },
+  username: {
+    type: String,
+    required: [true, 'Informe o username do usuário.']
+  },
   author: {
     type: String,
     required: [true, 'Informe o autor do artigo.']

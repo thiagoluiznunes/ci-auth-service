@@ -16,6 +16,7 @@ const createArticle = async (req, res) => {
       const { author, title, banner, article_body, brief_description } = req.body;
       const article = new Article({
         user_id: decode.id,
+        username: decode.username,
         author: author,
         title: title,
         banner: banner,
@@ -63,7 +64,7 @@ const getLatestArticles = async (req, res) => {
       else if (articles.length !== 0) return res.status(200).json(articles);
       return res.status(404).json({ message: 'Artigos não encontrados.' });
     })
-      .select('_id author title banner brief_description time_reading createdAt')
+      .select('_id author username title banner brief_description time_reading createdAt')
       .sort({ _id: -1 })
       .limit(5);
   } catch (error) {
@@ -78,7 +79,7 @@ const getTopRatedArticles = async (req, res) => {
       else if (articles.length !== 0) return res.status(200).json(articles);
       return res.status(404).json({ message: 'Artigos não encontrados.' });
     })
-      .select('_id author title banner brief_description time_reading createdAt')
+      .select('_id author username title banner brief_description time_reading createdAt')
       .sort({ likes: -1 })
       .limit(10);
   } catch (error) {
