@@ -1,0 +1,16 @@
+
+docker-compose*
+.dockerignore
+.git
+.gitignore
+.vscode
+.nycrc
+.travis.yml
+.eslintrc.json
+.env-example
+README.md
+LICENSE
+test
+node_modules
+npm-debug.log
+dist
